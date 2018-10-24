@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-StarragAwpCore-FED8CB9D-1276-4F71-B015-74C123178413</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Extensions\Data.cs" />
+    <Compile Remove="Extensions\ECDHAES256s.cs" />
+    <Compile Remove="Extensions\Email.cs" />
+    <Compile Remove="Extensions\Extensions.cs" />
+    <Compile Remove="Extensions\GlobalFunctions.cs" />
+    <Compile Remove="Extensions\GmailHelper.cs" />
+    <Compile Remove="Extensions\Handlers.cs" />
+    <Compile Remove="Extensions\Helpers.cs" />
+    <Compile Remove="Extensions\Hubs.cs" />
+    <Compile Remove="Extensions\NotificationSystem.cs" />
+    <Compile Remove="Extensions\Pdf.cs" />
+    <Compile Remove="Extensions\SchedulingSystem.cs" />
+    <Compile Remove="Extensions\SnapShot.cs" />
+    <Compile Remove="Extensions\SQLfunctions.cs" />
+    <Compile Remove="Extensions\Sync.cs" />
+    <Compile Remove="Extensions\UPS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Account\Images\" />
+    <Folder Include="Pages\Account\Documents\" />
+  </ItemGroup>
+</Project>
