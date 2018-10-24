@@ -14,7 +14,7 @@ namespace StarragAwpCore.Pages
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
         private readonly SqlService _sqlService;
         private readonly ICacheService _cacheService;
         private readonly IDistributedCache _cache;
@@ -22,18 +22,21 @@ namespace StarragAwpCore.Pages
         public AboutModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender, ISqlService sqlService, ICacheService cacheService, IDistributedCache cache)
+            IEmailService emailService,
+            ISqlService sqlService, 
+            ICacheService cacheService,
+            IDistributedCache cache)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            _emailSender = emailService;
             _sqlService = sqlService as SqlService;
-            _cacheService = cacheService;
+            _cacheService = cacheService as CacheService;
             _cache = cache;
         }
 
         public string Message { get; set; }
-
+       
         public async void OnGet()
         {
 
@@ -42,7 +45,7 @@ namespace StarragAwpCore.Pages
             //send email
             await _emailSender.SendEmailAsync("", "", "");         
 
-            //Use SqlService This line is not needed, if a connection is neccessary it will open one
+            //Use SqlService 
             var request = await _sqlService.OpenConnection();
             await request.AddAsync("StarragAwpCore", "notxml");
 
@@ -54,7 +57,6 @@ namespace StarragAwpCore.Pages
             //use distributed cache
             await _cache.PushAsync<int>("myInt", 3, 1);
             int myInt = await _cache.PullAsync<int>("myInt");
-
 
             //Use Push Class IS SUPER CLAS THAT IS CUSTOM WRITTEN TO MAKE ALL CACHING EASIER
             await Push.UserData();

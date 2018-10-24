@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StarragAwpCore.Services
 {
-    public interface IEmailSender
+    public interface IEmailService
     {
         Task SendEmailAsync(string email, string subject, string message);
     }

@@ -8,7 +8,7 @@ namespace StarragAwpCore.Services
 {
     public class SqlService : ISqlService
     {
-        public SQL_Request _request;
+        public SQL_Request _request = new SQL_Request();
 
         public async Task<SQL_Request> AddAsync(SQL_Request request, string AppName, string XmlData, string XmlData2 = "", string XmlData3 = "", string XmlData4 = "", string XmlData5 = "", bool close = true)
         {

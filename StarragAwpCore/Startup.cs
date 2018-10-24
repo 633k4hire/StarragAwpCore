@@ -44,7 +44,7 @@ namespace StarragAwpCore
 
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddSingleton<IEmailService, EmailSender>();
 
             //Add SqlService for Distrubuted Data Cache with LASTSOUL DB
             services.AddSingleton<ISqlService, SqlService>();
