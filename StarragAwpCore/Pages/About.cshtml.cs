@@ -36,6 +36,7 @@ namespace StarragAwpCore.Pages
 
         public async void OnGet()
         {
+
             Message = "Your application description page.";
 
             //send email
