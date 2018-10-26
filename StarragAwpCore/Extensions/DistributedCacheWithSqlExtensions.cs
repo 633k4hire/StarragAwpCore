@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using StarragAwpCore.Helpers;
 using StarragAwpCore.Services;
 using System;
 using System.Collections.Generic;
@@ -39,10 +40,30 @@ namespace StarragAwpCore.Extensions
                 }
                 else
                 {
+                    
                     //there is no local cache check sql
+
+                    //OVERRIDE TYPE FOR ASSETS
+                    if (typeof(T) == typeof(Asset))
+                    {
+                        var asset = await Pull.Asset(key);
+                        var ret = (T)Convert.ChangeType(asset, typeof(T));
+                        await cache._session.PushAsync<T>(key, ret);
+                        return ret;
+                    }
+                    else if (typeof(T) == typeof(List<Asset>))
+                    {
+                        var assetList = await Pull.Assets();
+                        var ret = (T)Convert.ChangeType(assetList, typeof(T));
+                        await cache._session.PushAsync<T>(key, ret);
+                        return (T)Convert.ChangeType(assetList, typeof(T));
+                    }
+
                     var sqlCacheResult = await StarragAwpCore.Pull.SqlCache<T>(key);
+
                     if (sqlCacheResult != null)
                     {
+                        
                         //push to both session and dist caches
                         await cache._Cache.PushAsync<T>(key, sqlCacheResult, 1);
                         await cache._session.PushAsync<T>(key, sqlCacheResult);

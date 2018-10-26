@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StarragAwpCore;
 using StarragAwpCore.Data;
+using StarragAwpCore.Extensions;
+using StarragAwpCore.Helpers;
 using StarragAwpCore.Services;
 using System;
 using System.Collections.Generic;
@@ -17,6 +20,7 @@ namespace Microsoft.AspNetCore.Mvc.RazorPages
         {
 
         }
+        
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
         public IEmailService _emailSender;
@@ -26,6 +30,23 @@ namespace Microsoft.AspNetCore.Mvc.RazorPages
         public ISession _session => _httpContextAccessor.HttpContext.Session;
 
         public string Message { get; set; }
+
+        private List<Asset> mAssets;
+
+        public List<Asset> AssetCache
+        {
+            get
+            {
+                var task = this.PullAll<List<Asset>>(Startup.AssetCache); // or this.PullAssetCache();      
+                Task.WaitAll(task);
+                mAssets = task.Result;
+                return mAssets;
+            }
+            set
+            {
+                mAssets = value;
+            }
+        }
 
         public StarragPageModel(            
             IEmailService emailService,
@@ -56,6 +77,15 @@ namespace StarragAwpCore.Extensions
             await pageModel._cacheService.PushAll<T>(key, value, pageModel._cacheService._session, pushSql, PushSession, PushDistributedCache);
         }
 
+        public static async Task<List<Asset>> PullAssetCache(this StarragPageModel pageModel)
+        {
+           return  await PullAll<List<Asset>>(pageModel, Startup.AssetCache);
+        }
+
+        public static async Task<Asset> PullCachedAsset(this StarragPageModel pageModel, string assetNumber)
+        {
+           return await PullAll<Asset>(pageModel, assetNumber);
+        }
     }
 
 

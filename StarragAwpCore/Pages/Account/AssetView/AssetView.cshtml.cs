@@ -25,19 +25,41 @@ namespace StarragAwpCore.Pages.Account.AssetView
         }
         /// <summary>
         /// Use the CacheService to see if anything needs to be pulled down(use signalr to set this flag), if not then CacheService Will pull from Sqlservice
+        ///   This will push to both session and global cache, but not sql
+        ///   this.PushAll<int>("TestInt", 3,false);
+        ///
+        ///   This will push to both session and global cache, and to sql
+        ///   this.PushAll<int>("TestInt", 3, true);
+        ///
+        ///    var myInt = this.PullAll<int>("TestInt");
         /// </summary>
-        public List<Asset> AssetCache { get; set; }
+   
+        //private List<Asset> mAssets;
+
+        //public List<Asset> AssetCache
+        //{
+        //    get
+        //    {
+        //        var task = this.PullAll<List<Asset>>(Startup.AssetCache); // or this.PullAssetCache();      
+        //        Task.WaitAll(task);
+        //        mAssets = task.Result;
+        //        return mAssets;
+        //    }
+        //    set
+        //    {
+        //        mAssets = value;
+        //    }
+        //}
+
+
         public void OnGet()
         {
+            //Pull Cache of AssetList
+            //var task = this.PullAll<List<Asset>>(Startup.AssetCache); // or this.PullAssetCache();      
+            //Task.WaitAll(task);
+            //AssetCache = task.Result;
+            var a = this.AssetCache;
             
-            //This will push to both session and global cache, but not sql
-              this.PushAll<int>("TestInt", 3,false);
-
-            //This will push to both session and global cache, and to sql
-              this.PushAll<int>("TestInt", 3, true);       
-
-            var myInt= this.PullAll<int>("TestInt");
-
             Message = "This is the AssetView Page";            
         }
     }

@@ -21,7 +21,8 @@ namespace StarragAwpCore
     public class Startup
     {
        
-        public static string AppName = "StarragAwpCore";
+        public static string AppName => "StarragAwpCore";
+        public static string AssetCache => "SessionAssetCache";
 
         public Startup(IConfiguration configuration)
         {
