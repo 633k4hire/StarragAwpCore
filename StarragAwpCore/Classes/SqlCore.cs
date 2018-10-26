@@ -85,867 +85,11 @@ namespace SqlCore
             }
             return request;
         }
-
-
-        ////Asset
-        //public static SQL_Request AddAsset(this SQL_Request request, Asset asset, bool close = true)
-        //{
-        //    if (request.Connection.State == ConnectionState.Closed)
-        //    { request.Connection.Open(); }
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        string imgs = "";
-
-        //        imgs = asset.Images;
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        request.Command = new SqlCommand();
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-        //        request.Command.CommandText = "AssetInsert"; //Stored Procedure Name
-
-        //        //	 @AssetName,@AssetNumber,@CalibratedAsset,@Damaged,@OnHold,@BarcodeImage,
-        //        //@CalibrationCompany,@CalibrationHistory,@CalibrationPeriod,@DateReturned,
-        //        //@DateShipped,@AssetDescription,@LastCalibrated,@OrderNumber,@PersonShipping,
-        //        //@PackingSlip,@ReturnReport,@UPSlabel,@Images,@ImageLinks,@ServiceEngineer,@ShipTo,@AssetWeight
-        //        request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
-        //        request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
-        //        request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
-        //        request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
-        //        request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
-        //        request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage; //FIX
-        //        request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
-        //       // string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
-        //        try
-        //        {
-        //            calXml = "";
-        //        }
-        //        catch { }
-        //        request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = "";
-        //        request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
-        //        request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
-        //        request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
-        //        request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
-        //        request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
-        //        request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
-        //        request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
-        //        request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
-        //        request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
-        //        request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
-        //        try
-        //        {
-        //            foreach (var ii in asset.History.History)
-        //            {
-        //                ii.IsHistoryItem = true;
-        //            }
-        //        }
-        //        catch { }
-        //        var histxml = asset.History.Serialize();
-        //        request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
-        //        request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
-        //        request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
-        //        request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
-        //        string doc_csv = "";
-        //        if (asset.Documents != null)
-        //        {
-        //            if (asset.Documents.Count > 0)
-        //            {
-        //                foreach (var item in asset.Documents)
-        //                {
-        //                    doc_csv += item + ",";
-        //                }
-        //            }
-        //        }
-        //        request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
-        //        request.Command.ExecuteNonQuery();
-        //        request.Success = true;
-        //        request.Message = "success:addAsset";
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:addAsset";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    request.Message = "success:addAsset";
-        //    request.Success = true;
-        //    return request;
-        //}
-        //public static SQL_Request GetAssets(this SQL_Request request, bool close = true)
-        //{
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-
-        //        request.Command.CommandText = "AssetGetAll";
-        //        //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
-        //        //request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
-
-        //        SqlDataAdapter da = new SqlDataAdapter(request.Command);
-        //        DataSet ds = new DataSet();
-        //        da.Fill(ds);
-        //        request.Message = "success:getalldata";
-        //        request.Data = ds;
-        //        request.Success = true;
-        //        List<Asset> newassets = new List<Asset>();
-        //        try
-        //        {
-
-        //            foreach (DataRow dr in request.Data.Tables[0].Rows)
-        //            {
-        //                Asset a = new Asset();
-        //                a.AssetName = dr?.Field<string>("AssetName");
-        //                a.AssetNumber = dr?.Field<string>("AssetNumber");
-        //                try
-        //                {
-        //                    a.OrderNumber = dr?.Field<string>("OrderNumber");
-        //                }
-        //                catch { }
-        //                a.ShipTo = dr?.Field<string>("ShipTo");
-        //                a.IsOut = dr.Field<bool>("IsOut");
-        //                a.DateShipped = DateTime.Parse(dr?.Field<string>("DateShipped"));
-        //                a.ServiceEngineer = dr?.Field<string>("ServiceEngineer");
-        //                a.PersonShipping = dr?.Field<string>("PersonShipping");
-        //                a.DateRecieved = DateTime.Parse(dr?.Field<string>("DateReturned"));
-        //                a.weight = Convert.ToDecimal(dr?.Field<string>("AssetWeight"));
-        //                a.IsDamaged = dr.Field<bool>("Damaged");
-        //                a.OnHold = dr.Field<bool>("OnHold");
-        //                a.Description = dr?.Field<string>("AssetDescription");
-        //                a.IsCalibrated = dr.Field<bool>("CalibratedAsset");
-        //                a.CalibrationCompany = dr?.Field<string>("CalibrationCompany");
-        //                a.LastCalibrated = DateTime.Parse(dr?.Field<string>("LastCalibrated"));
-        //                a.CalibrationPeriod = dr?.Field<string>("CalibrationPeriod");
-        //                var calXml = dr?.Field<string>("CalibrationHistory");
-        //                try
-        //                {
-        //                    a.CalibrationHistory = new CalibrationLibrary().DeserializeFromXmlString<CalibrationLibrary>(calXml);
-        //                }
-        //                catch { }
-
-        //                a.Images = dr?.Field<string>("Images");
-        //                a.BarcodeImage = dr?.Field<string>("BarcodeImage");
-        //                try
-        //                {
-        //                    var xml = dr?.Field<string>("History");
-        //                    a.History = new AssetHistory().Deserialize(xml);
-        //                    foreach (var ii in a.History.History)
-        //                    {
-        //                        ii.IsHistoryItem = true;
-        //                    }
-        //                }
-        //                catch { }
-        //                a.PackingSlip = dr?.Field<string>("PackingSlip");
-        //                a.UpsLabel = dr?.Field<string>("UpsLabel");
-        //                a.ReturnReport = dr?.Field<string>("ReturnReport");
-        //                var doc_csv = dr?.Field<string>("Documents");
-        //                a.Documents = new List<string>();
-        //                if (doc_csv != null)
-        //                {
-        //                    if (doc_csv != "")
-        //                    {
-        //                        a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        //                    }
-        //                }
-
-        //                newassets.Add(a);
-        //            }
-        //            request.Tag = newassets;
-        //        }
-        //        catch { }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:getalldata";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        //public static SQL_Request GetAsset(this SQL_Request request, string AssetNumber, bool close = true)
-        //{
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-
-        //        request.Command.CommandText = "AssetGet";
-        //        //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
-
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
-
-        //        SqlDataAdapter da = new SqlDataAdapter(request.Command);
-        //        DataSet ds = new DataSet();
-        //        da.Fill(ds);
-        //        //create an asset and tag it onto sql_request
-        //        request.Message = "success:getdata";
-        //        request.Data = ds;
-        //        request.Success = true;
-        //        try
-        //        {
-        //            List<Asset> newassets = new List<Asset>();
-        //            foreach (DataRow dr in request.Data.Tables[0].Rows)
-        //            {
-        //                Asset a = new Asset();
-        //                a.AssetName = dr?.Field<string>("AssetName");
-        //                a.AssetNumber = dr?.Field<string>("AssetNumber");
-        //                try
-        //                {
-        //                    a.OrderNumber = dr?.Field<string>("OrderNumber");
-        //                }
-        //                catch { }
-        //                a.ShipTo = dr?.Field<string>("ShipTo");
-
-        //                a.DateShipped = DateTime.Parse(dr?.Field<string>("DateShipped"));
-        //                a.ServiceEngineer = dr?.Field<string>("ServiceEngineer");
-        //                a.PersonShipping = dr?.Field<string>("PersonShipping");
-        //                a.DateRecieved = DateTime.Parse(dr?.Field<string>("DateReturned"));
-        //                a.weight = Convert.ToDecimal(dr?.Field<string>("AssetWeight"));
-        //                a.IsDamaged = dr.Field<bool>("Damaged");
-        //                a.OnHold = dr.Field<bool>("OnHold");
-        //                a.IsOut = dr.Field<bool>("IsOut");
-        //                a.Description = dr?.Field<string>("AssetDescription");
-        //                a.IsCalibrated = dr.Field<bool>("CalibratedAsset");
-        //                a.CalibrationCompany = dr?.Field<string>("CalibrationCompany");
-        //                a.LastCalibrated = DateTime.Parse(dr?.Field<string>("LastCalibrated"));
-        //                a.CalibrationPeriod = dr?.Field<string>("CalibrationPeriod");
-        //                var calXml = dr?.Field<string>("CalibrationHistory");
-        //                try
-        //                {
-        //                    a.CalibrationHistory = new CalibrationLibrary().DeserializeFromXmlString<CalibrationLibrary>(calXml);
-        //                }
-        //                catch { }
-        //                a.Images = dr?.Field<string>("Images");
-        //                a.BarcodeImage = dr?.Field<string>("BarcodeImage");
-        //                try
-        //                {
-        //                    var xml = dr?.Field<string>("History");
-        //                    a.History = new AssetHistory().Deserialize(xml);
-        //                    foreach (var ii in a.History.History)
-        //                    {
-        //                        ii.IsHistoryItem = true;
-        //                    }
-        //                }
-        //                catch { }
-        //                a.PackingSlip = dr?.Field<string>("PackingSlip");
-        //                a.UpsLabel = dr?.Field<string>("UpsLabel");
-        //                a.ReturnReport = dr?.Field<string>("ReturnReport");
-        //                var doc_csv = dr?.Field<string>("Documents");
-        //                a.Documents = new List<string>();
-        //                if (doc_csv != null)
-        //                {
-        //                    if (doc_csv != "")
-        //                    {
-        //                        a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        //                    }
-        //                }
-        //                request.Tag = a;
-        //            }
-
-        //        }
-        //        catch { }
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:getdata";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        //public static SQL_Request DeleteAsset(this SQL_Request request, string AssetNumber, bool close = true)
-        //{
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-
-        //        request.Command.CommandText = "AssetDelete";
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
-        //        request.Command.ExecuteNonQuery();
-        //        request.Message = "success:deletedata";
-
-        //        request.Success = true;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:deletedata";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        //public static SQL_Request UpdateAsset(this SQL_Request request, Asset asset, bool close = true)
-        //{
-
-        //    request.Command = new SqlCommand();
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-        //        request.Command.CommandText = "AssetUpdate";
-        //        string imgs = asset.Images;
-        //        // request.Command.CommandText = "spUpdateTimeData"; //Stored Procedure Name
-        //        request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
-        //        request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
-        //        request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
-        //        request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
-        //        request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
-        //        request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage;
-        //        request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
-        //        request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
-        //        request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
-        //        request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
-        //        request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
-        //        request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
-        //        request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
-        //        request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
-        //        request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
-        //        request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
-        //        request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
-        //        if (asset.PackingSlip == null) { asset.PackingSlip = ""; }
-        //        request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
-        //        request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
-        //        string doc_csv = "";
-        //        if (asset.Documents != null)
-        //        {
-        //            if (asset.Documents.Count > 0)
-        //            {
-        //                foreach (var item in asset.Documents)
-        //                {
-        //                    doc_csv += item + ",";
-        //                }
-        //            }
-        //        }
-        //        request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
-
-        //        if (asset.UpsLabel == null)
-        //        {
-        //            asset.UpsLabel = "/Account/Templates/blank.pdf";
-        //        }
-        //        request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
-
-        //        string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
-        //        try
-        //        {
-        //            calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
-        //        }
-        //        catch { }
-        //        request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = ""; ///ERASE CALIBRATION DATA SPACE
-        //        try
-        //        {
-        //            foreach (var ii in asset.History.History)
-        //            {
-        //                ii.IsHistoryItem = true;
-        //            }
-        //        }
-        //        catch { }
-        //        try
-        //        {
-        //            foreach (var aa in asset.History.History)
-        //            {
-        //                aa.History = new AssetHistory();
-        //            }
-        //            var histxml = asset.History.Serialize();
-        //            request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
-        //        }
-        //        catch { }
-
-        //        request.Command.ExecuteNonQuery();
-        //        request.Message = "success:assetUpdate";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:assetUpdate";
-
-        //        // System.Windows.Forms.MessageBox.Show(ex.ToString());
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        ////Asset Async
-        //public static async Task<SQL_Request> UpdateAssetAsync(this SQL_Request request, Asset asset, bool close = true)
-        //{
-
-        //    request.Command = new SqlCommand();
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { await request.Connection.OpenAsync(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-        //        request.Command.CommandText = "AssetUpdate";
-        //        string imgs = asset.Images;
-        //        // request.Command.CommandText = "spUpdateTimeData"; //Stored Procedure Name
-        //        request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
-        //        request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
-        //        request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
-        //        request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
-        //        request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
-        //        request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage;
-        //        request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
-        //        request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
-        //        request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
-        //        request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
-        //        request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
-        //        request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
-        //        request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
-        //        request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
-        //        request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
-        //        request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
-        //        request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
-        //        if (asset.PackingSlip == null) { asset.PackingSlip = ""; }
-        //        request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
-        //        request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
-        //        request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
-        //        string doc_csv = "";
-        //        if (asset.Documents != null)
-        //        {
-        //            if (asset.Documents.Count > 0)
-        //            {
-        //                foreach (var item in asset.Documents)
-        //                {
-        //                    doc_csv += item + ",";
-        //                }
-        //            }
-        //        }
-        //        request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
-        //        string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
-        //        try
-        //        {
-        //            calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
-        //        }
-        //        catch { }
-        //        request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = calXml;
-        //        try
-        //        {
-        //            foreach (var ii in asset.History.History)
-        //            {
-        //                ii.IsHistoryItem = true;
-        //            }
-        //        }
-        //        catch { }
-        //        try
-        //        {
-        //            foreach (var aa in asset.History.History)
-        //            {
-        //                aa.History = new AssetHistory();
-        //            }
-        //            var histxml = asset.History.Serialize();
-        //            request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
-        //        }
-        //        catch { }
-
-        //        await request.Command.ExecuteNonQueryAsync();
-        //        request.Message = "success:assetUpdate";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:assetUpdate";
-
-        //        //System.Windows.Forms.MessageBox.Show(ex.ToString());
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        //public static async Task<SQL_Request> GetAssetAsync(this SQL_Request request, string AssetNumber, bool close = true)
-        //{
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { await request.Connection.OpenAsync(); }
-        //        // Create a object of SqlCommand class
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-
-        //        request.Command.CommandText = "AssetGet";
-        //        //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
-
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
-
-        //        SqlDataAdapter da = new SqlDataAdapter(request.Command);
-        //        DataSet ds = new DataSet();
-        //        try
-        //        {
-        //            await Task.Run(() => da.Fill(ds));
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            request.Error.Ex = ex;
-        //            request.Success = false;
-        //            request.Message = "error:getalldata";
-        //            return request;
-        //        }
-        //        //create an asset and tag it onto sql_request
-        //        request.Message = "success:getdata";
-        //        request.Data = ds;
-        //        request.Success = true;
-        //        try
-        //        {
-        //            List<Asset> newassets = new List<Asset>();
-        //            foreach (DataRow dr in request.Data.Tables[0].Rows)
-        //            {
-        //                Asset a = new Asset();
-        //                a.AssetName = dr?.Field<string>("AssetName");
-        //                a.AssetNumber = dr?.Field<string>("AssetNumber");
-        //                try
-        //                {
-        //                    a.OrderNumber = dr?.Field<string>("OrderNumber");
-        //                }
-        //                catch { }
-        //                a.ShipTo = dr?.Field<string>("ShipTo");
-
-        //                a.DateShipped = DateTime.Parse(dr?.Field<string>("DateShipped"));
-        //                a.ServiceEngineer = dr?.Field<string>("ServiceEngineer");
-        //                a.PersonShipping = dr?.Field<string>("PersonShipping");
-        //                a.DateRecieved = DateTime.Parse(dr?.Field<string>("DateReturned"));
-        //                a.weight = Convert.ToDecimal(dr?.Field<string>("AssetWeight"));
-        //                a.IsDamaged = dr.Field<bool>("Damaged");
-        //                a.OnHold = dr.Field<bool>("OnHold");
-        //                a.IsOut = dr.Field<bool>("IsOut");
-        //                a.Description = dr?.Field<string>("AssetDescription");
-        //                a.IsCalibrated = dr.Field<bool>("CalibratedAsset");
-        //                a.CalibrationCompany = dr?.Field<string>("CalibrationCompany");
-        //                a.LastCalibrated = DateTime.Parse(dr?.Field<string>("LastCalibrated"));
-        //                a.CalibrationPeriod = dr?.Field<string>("CalibrationPeriod");
-        //                var calXml = dr?.Field<string>("CalibrationHistory");
-        //                try
-        //                {
-        //                    a.CalibrationHistory = new CalibrationLibrary().DeserializeFromXmlString<CalibrationLibrary>(calXml);
-        //                }
-        //                catch { }
-        //                a.Images = dr?.Field<string>("Images");
-        //                a.BarcodeImage = dr?.Field<string>("BarcodeImage");
-        //                try
-        //                {
-        //                    var xml = dr?.Field<string>("History");
-        //                    a.History = new AssetHistory().Deserialize(xml);
-        //                    foreach (var ii in a.History.History)
-        //                    {
-        //                        ii.IsHistoryItem = true;
-        //                    }
-        //                }
-        //                catch { }
-        //                a.PackingSlip = dr?.Field<string>("PackingSlip");
-        //                a.UpsLabel = dr?.Field<string>("UpsLabel");
-        //                a.ReturnReport = dr?.Field<string>("ReturnReport");
-        //                var doc_csv = dr?.Field<string>("Documents");
-        //                a.Documents = new List<string>();
-        //                if (doc_csv != null)
-        //                {
-        //                    if (doc_csv != "")
-        //                    {
-        //                        a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        //                    }
-        //                }
-        //                request.Tag = a;
-        //            }
-
-        //        }
-        //        catch { }
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:getdata";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-        //    }
-        //    return request;
-        //}
-        //public static async Task<SQL_Request> GetAssetsAsync(this SQL_Request request, bool close = true)
-        //{
-        //    request.Command = new SqlCommand();
-        //    try
-        //    {
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { await request.Connection.OpenAsync(); }
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-        //        request.Command.CommandText = "AssetGetAll";
-        //        request.Command.CommandTimeout = 120;
-        //        SqlDataAdapter da = new SqlDataAdapter(request.Command);
-        //        DataSet ds = new DataSet();
-        //        try
-        //        {
-        //            await Task.Run(() => da.Fill(ds));
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            request.Error.Ex = ex;
-        //            request.Success = false;
-        //            request.Message = "error:getalldata";
-        //            return request;
-        //        }
-        //        request.Message = "success:getalldata";
-        //        request.Data = ds;
-        //        request.Success = true;
-        //        List<Asset> newassets = new List<Asset>();
-        //        try
-        //        {
-
-        //            foreach (DataRow dr in request.Data.Tables[0].Rows)
-        //            {
-        //                Asset a = new Asset();
-        //                a.AssetName = dr?.Field<string>("AssetName");
-        //                a.AssetNumber = dr?.Field<string>("AssetNumber");
-        //                try
-        //                {
-        //                    a.OrderNumber = dr?.Field<string>("OrderNumber");
-        //                }
-        //                catch { }
-        //                a.ShipTo = dr?.Field<string>("ShipTo");
-        //                a.IsOut = dr.Field<bool>("IsOut");
-        //                a.DateShipped = DateTime.Parse(dr?.Field<string>("DateShipped"));
-        //                a.ServiceEngineer = dr?.Field<string>("ServiceEngineer");
-        //                a.PersonShipping = dr?.Field<string>("PersonShipping");
-        //                a.DateRecieved = DateTime.Parse(dr?.Field<string>("DateReturned"));
-        //                a.weight = Convert.ToDecimal(dr?.Field<string>("AssetWeight"));
-        //                a.IsDamaged = dr.Field<bool>("Damaged");
-        //                a.OnHold = dr.Field<bool>("OnHold");
-        //                a.Description = dr?.Field<string>("AssetDescription");
-        //                a.IsCalibrated = dr.Field<bool>("CalibratedAsset");
-        //                a.CalibrationCompany = dr?.Field<string>("CalibrationCompany");
-        //                a.LastCalibrated = DateTime.Parse(dr?.Field<string>("LastCalibrated"));
-        //                a.CalibrationPeriod = dr?.Field<string>("CalibrationPeriod");
-        //                var calXml = dr?.Field<string>("CalibrationHistory");
-        //                try
-        //                {
-        //                    a.CalibrationHistory = new CalibrationLibrary().DeserializeFromXmlString<CalibrationLibrary>(calXml);
-        //                }
-        //                catch { }
-
-        //                a.Images = dr?.Field<string>("Images");
-        //                a.BarcodeImage = dr?.Field<string>("BarcodeImage");
-        //                try
-        //                {
-        //                    var xml = dr?.Field<string>("History");
-        //                    a.History = new AssetHistory().Deserialize(xml);
-        //                    foreach (var ii in a.History.History)
-        //                    {
-        //                        ii.IsHistoryItem = true;
-        //                    }
-        //                }
-        //                catch { }
-        //                a.PackingSlip = dr?.Field<string>("PackingSlip");
-        //                a.UpsLabel = dr?.Field<string>("UpsLabel");
-        //                a.ReturnReport = dr?.Field<string>("ReturnReport");
-        //                var doc_csv = dr?.Field<string>("Documents");
-        //                a.Documents = new List<string>();
-        //                if (doc_csv != null)
-        //                {
-        //                    if (doc_csv != "")
-        //                    {
-        //                        a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        //                    }
-        //                }
-        //                newassets.Add(a);
-        //            }
-        //            request.Tag = newassets;
-        //        }
-        //        catch { }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:getalldata";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //        {
-        //            CloseConnection(request);
-        //        }
-        //    }
-        //    return request;
-        //}
-        //public static async Task<SQL_Request> AddAssetAsync(this SQL_Request request, Asset asset, bool close = true)
-        //{
-        //    if (request.Connection.State == ConnectionState.Closed)
-        //    { await request.Connection.OpenAsync(); }
-        //    request.Command = new SqlCommand();
-
-        //    try
-        //    {
-        //        string imgs = "";
-
-        //        imgs = asset.Images;
-        //        if (request.Connection.State == ConnectionState.Closed)
-        //        { request.Connection.Open(); }
-        //        request.Command = new SqlCommand();
-        //        request.Command.Connection = request.Connection; //Pass the connection object to Command
-        //        request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
-        //        request.Command.CommandText = "AssetInsert"; //Stored Procedure Name
-
-        //        //	 @AssetName,@AssetNumber,@CalibratedAsset,@Damaged,@OnHold,@BarcodeImage,
-        //        //@CalibrationCompany,@CalibrationHistory,@CalibrationPeriod,@DateReturned,
-        //        //@DateShipped,@AssetDescription,@LastCalibrated,@OrderNumber,@PersonShipping,
-        //        //@PackingSlip,@ReturnReport,@UPSlabel,@Images,@ImageLinks,@ServiceEngineer,@ShipTo,@AssetWeight
-        //        request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
-        //        request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
-        //        request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
-        //        request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
-        //        request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
-        //        request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
-        //        request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage; //FIX
-        //        request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
-        //        string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
-        //        try
-        //        {
-        //            calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
-        //        }
-        //        catch { }
-        //        request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = calXml;
-        //        request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
-        //        request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
-        //        request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
-        //        request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
-        //        request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
-        //        request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
-        //        request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
-        //        request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
-        //        request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
-        //        request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
-        //        request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
-        //        try
-        //        {
-        //            foreach (var ii in asset.History.History)
-        //            {
-        //                ii.IsHistoryItem = true;
-        //            }
-        //        }
-        //        catch { }
-        //        var histxml = asset.History.Serialize();
-        //        request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
-        //        request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
-        //        request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
-        //        request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
-        //        string doc_csv = "";
-        //        if (asset.Documents != null)
-        //        {
-        //            if (asset.Documents.Count > 0)
-        //            {
-        //                foreach (var item in asset.Documents)
-        //                {
-        //                    doc_csv += item + ",";
-        //                }
-        //            }
-        //        }
-        //        request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
-        //        await request.Command.ExecuteNonQueryAsync();
-        //        request.Success = true;
-        //        request.Message = "success:addAsset";
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        request.Error.Ex = ex;
-        //        request.Success = false;
-        //        request.Message = "error:addAsset";
-        //        return request;
-        //    }
-        //    finally
-        //    {
-        //        if (close)
-        //            CloseConnection(request);
-
-        //    }
-        //    request.Message = "success:addAsset";
-        //    request.Success = true;
-        //    return request;
-        //}
-
-        //Settings   AWP_STARRAG_US
+        
         public static SQL_Request SettingsAdd(this SQL_Request request, string AppName, string XmlData, string XmlData2 = "", string XmlData3 = "", string XmlData4 = "", string XmlData5 = "", bool close = true)
         {
-            if (request.Connection.State == ConnectionState.Closed)
-            { request.Connection.Open(); }
+            if (request.Connection == null)
+            { request.OpenConnection(); }
             request.Command = new SqlCommand();
 
             try
@@ -994,8 +138,8 @@ namespace SqlCore
 
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { request.Connection.Open(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1016,12 +160,13 @@ namespace SqlCore
                         try
                         {
                             SettingsDBData a = new SettingsDBData();
-                            //a.Appname = dr.("AppName");
-                            //a.XmlData = dr?.Field<string>("XmlData");
-                            //a.XmlData2 = dr?.Field<string>("XmlData2");
-                            //a.XmlData3 = dr?.Field<string>("XmlData3");
-                            //a.XmlData4 = dr?.Field<string>("XmlData4");
-                            //a.XmlData5 = dr?.Field<string>("XmlData5");
+                            a.Appname = dr?.ItemArray[0] as string;
+                            a.Timestamp = dr?.ItemArray[1] as byte[];
+                            a.XmlData = dr?.ItemArray[2] as string;
+                            a.XmlData2 = dr?.ItemArray[3] as string;
+                            a.XmlData3 = dr?.ItemArray[4] as string;
+                            a.XmlData4 = dr?.ItemArray[5] as string;
+                            a.XmlData5 = dr?.ItemArray[6] as string;
 
                             settingslist.Add(a);
                         }
@@ -1052,8 +197,8 @@ namespace SqlCore
 
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { request.Connection.Open(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1076,12 +221,13 @@ namespace SqlCore
                     foreach (DataRow dr in request.Data.Tables[0].Rows)
                     {
                         SettingsDBData a = new SettingsDBData();
-                        //a.Appname = dr?.Field<string>("AppName");
-                        //a.XmlData = dr?.Field<string>("XmlData");
-                        //a.XmlData2 = dr?.Field<string>("XmlData2");
-                        //a.XmlData3 = dr?.Field<string>("XmlData3");
-                        //a.XmlData4 = dr?.Field<string>("XmlData4");
-                        //a.XmlData5 = dr?.Field<string>("XmlData5");
+                        a.Appname = dr?.ItemArray[0] as string;
+                        a.Timestamp = dr?.ItemArray[1] as byte[];
+                        a.XmlData = dr?.ItemArray[2] as string;
+                        a.XmlData2 = dr?.ItemArray[3] as string;
+                        a.XmlData3 = dr?.ItemArray[4] as string;
+                        a.XmlData4 = dr?.ItemArray[5] as string;
+                        a.XmlData5 = dr?.ItemArray[6] as string;
                         request.Tag = newassets;
                         newassets.Add(a);
                     }
@@ -1110,14 +256,14 @@ namespace SqlCore
             }
             return request;
         }
-        public static SQL_Request SettingsDelete(this SQL_Request request, string AppName = "AWP_STARRAG_US", bool close = true)
+        public static SQL_Request SettingsRemove(this SQL_Request request, string AppName = "AWP_STARRAG_US", bool close = true)
         {
             request.Command = new SqlCommand();
 
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { request.Connection.Open(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1150,8 +296,8 @@ namespace SqlCore
             request.Command = new SqlCommand();
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { request.Connection.Open(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1185,8 +331,8 @@ namespace SqlCore
         //Settings Async
         public static async Task<SQL_Request> SettingsAddAsync(this SQL_Request request, string AppName, string XmlData, string XmlData2 = "", string XmlData3 = "", string XmlData4 = "", string XmlData5 = "", bool close = true)
         {
-            if (request.Connection.State == ConnectionState.Closed)
-            { await request.Connection.OpenAsync(); }
+            if (request.Connection == null)
+            { request.OpenConnection(); }
             request.Command = new SqlCommand();
 
             try
@@ -1235,8 +381,8 @@ namespace SqlCore
 
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { await request.Connection.OpenAsync(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1267,12 +413,13 @@ namespace SqlCore
                         try
                         {
                             SettingsDBData a = new SettingsDBData();
-                            //a.Appname = dr?.Field<string>("AppName");
-                            //a.XmlData = dr?.Field<string>("XmlData");
-                            //a.XmlData2 = dr?.Field<string>("XmlData2");
-                            //a.XmlData3 = dr?.Field<string>("XmlData3");
-                            //a.XmlData4 = dr?.Field<string>("XmlData4");
-                            //a.XmlData5 = dr?.Field<string>("XmlData5");
+                            a.Appname = dr?.ItemArray[0] as string;
+                            a.Timestamp = dr?.ItemArray[1] as byte[];
+                            a.XmlData = dr?.ItemArray[2] as string;
+                            a.XmlData2 = dr?.ItemArray[3] as string;
+                            a.XmlData3 = dr?.ItemArray[4] as string;
+                            a.XmlData4 = dr?.ItemArray[5] as string;
+                            a.XmlData5 = dr?.ItemArray[6] as string;
 
                             settingslist.Add(a);
                         }
@@ -1303,8 +450,8 @@ namespace SqlCore
 
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { await request.Connection.OpenAsync(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1337,12 +484,13 @@ namespace SqlCore
                     foreach (DataRow dr in request.Data.Tables[0].Rows)
                     {
                         SettingsDBData a = new SettingsDBData();
-                        //a.Appname = dr?.Field<string>("AppName");
-                        //a.XmlData = dr?.Field<string>("XmlData");
-                        //a.XmlData2 = dr?.Field<string>("XmlData2");
-                        //a.XmlData3 = dr?.Field<string>("XmlData3");
-                        //a.XmlData4 = dr?.Field<string>("XmlData4");
-                        //a.XmlData5 = dr?.Field<string>("XmlData5");
+                        a.Appname = dr?.ItemArray[0] as string;
+                        a.Timestamp = dr?.ItemArray[1] as byte[];
+                        a.XmlData = dr?.ItemArray[2] as string;
+                        a.XmlData2 = dr?.ItemArray[3] as string;
+                        a.XmlData3 = dr?.ItemArray[4] as string;
+                        a.XmlData4 = dr?.ItemArray[5] as string;
+                        a.XmlData5 = dr?.ItemArray[6] as string;
                         request.Tag = newassets;
                         newassets.Add(a);
                     }
@@ -1377,8 +525,8 @@ namespace SqlCore
             request.Command = new SqlCommand();
             try
             {
-                if (request.Connection.State == ConnectionState.Closed)
-                { await request.Connection.OpenAsync(); }
+                if (request.Connection == null)
+                { request.OpenConnection(); }
                 // Create a object of SqlCommand class
                 request.Command.Connection = request.Connection; //Pass the connection object to Command
                 request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
@@ -1408,6 +556,1134 @@ namespace SqlCore
                     CloseConnection(request);
             }
             return request;
+        }
+        public static async Task<SQL_Request> SettingsRemoveAsync(this SQL_Request request, string AppName = "AWP_STARRAG_US", bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(SettingsRemove(request,AppName,close));
+        }
+
+        //Asset
+        public static SQL_Request AddAsset(this SQL_Request request, Asset asset, bool close = true)
+        {
+            if (request.Connection == null)
+            { request.OpenConnection(); }
+            request.Command = new SqlCommand();
+
+            try
+            {
+                string imgs = "";
+
+                imgs = asset.Images;
+                if (request.Connection.State == ConnectionState.Closed)
+                { request.Connection.Open(); }
+                request.Command = new SqlCommand();
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "AssetInsert"; //Stored Procedure Name
+
+                //	 @AssetName,@AssetNumber,@CalibratedAsset,@Damaged,@OnHold,@BarcodeImage,
+                //@CalibrationCompany,@CalibrationHistory,@CalibrationPeriod,@DateReturned,
+                //@DateShipped,@AssetDescription,@LastCalibrated,@OrderNumber,@PersonShipping,
+                //@PackingSlip,@ReturnReport,@UPSlabel,@Images,@ImageLinks,@ServiceEngineer,@ShipTo,@AssetWeight
+                request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
+                request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
+                request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
+                request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
+                request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
+                request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage; //FIX
+                request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
+                string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
+                try
+                {
+                    calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
+                }
+                catch { }
+                request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = "";
+                request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
+                request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
+                request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
+                request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
+                request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
+                request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
+                request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
+                request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
+                request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
+                request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
+                try
+                {
+                    foreach (var ii in asset.History.History)
+                    {
+                        ii.IsHistoryItem = true;
+                    }
+                }
+                catch { }
+                var histxml = asset.History.Serialize();
+                request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
+                request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
+                request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
+                request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
+                string doc_csv = "";
+                if (asset.Documents != null)
+                {
+                    if (asset.Documents.Count > 0)
+                    {
+                        foreach (var item in asset.Documents)
+                        {
+                            doc_csv += item + ",";
+                        }
+                    }
+                }
+                request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
+                request.Command.ExecuteNonQuery();
+                request.Success = true;
+                request.Message = "success:addAsset";
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:addAsset";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            request.Message = "success:addAsset";
+            request.Success = true;
+            return request;
+        }
+        public static SQL_Request GetAssets(this SQL_Request request, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "AssetGetAll";
+                //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
+                //request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
+
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                request.Message = "success:getalldata";
+                request.Data = ds;
+                request.Success = true;
+                List<Asset> newassets = new List<Asset>();
+                try
+                {
+
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        Asset a = new Asset();
+                        //var id= dr?.ItemArray[0] as string;
+                        a.AssetName = dr?.ItemArray[1] as string;
+                        a.AssetNumber = dr?.ItemArray[2] as string;
+                        try
+                        {
+                            a.OrderNumber = dr?.ItemArray[3] as string;
+                        }
+                        catch { }
+                        a.ShipTo = dr?.ItemArray[4] as string;
+                        a.DateShipped = DateTime.Parse(dr?.ItemArray[5] as string);
+                        a.ServiceEngineer = dr?.ItemArray[6] as string;
+                        a.PersonShipping = dr?.ItemArray[7] as string;
+                        a.DateRecieved = DateTime.Parse(dr?.ItemArray[8] as string);
+                        a.weight = Convert.ToDecimal(dr?.ItemArray[9] as string);
+                        a.IsDamaged = Convert.ToBoolean( dr?.ItemArray[10] as string);
+                        a.OnHold = Convert.ToBoolean(dr?.ItemArray[11] as string);
+                        a.IsOut = Convert.ToBoolean(dr?.ItemArray[12] as string);
+                        a.Description = dr?.ItemArray[13] as string;
+                        a.IsCalibrated = Convert.ToBoolean(dr?.ItemArray[14] as string);
+                        a.CalibrationCompany = dr?.ItemArray[15] as string;
+                        a.LastCalibrated = DateTime.Parse(dr?.ItemArray[16] as string);
+                        a.CalibrationPeriod = dr?.ItemArray[17] as string; 
+
+                        a.CalibrationHistory = new CalibrationLibrary();//18
+                        
+
+                        //imagelinks is 19
+                        a.BarcodeImage = dr?.ItemArray[20] as string;
+                        a.Images = dr?.ItemArray[21] as string;
+                        try
+                        {
+                            var xml = dr?.ItemArray[22] as string;
+                            a.History = new AssetHistory().Deserialize(xml);
+                            foreach (var ii in a.History.History)
+                            {
+                                ii.IsHistoryItem = true;
+                            }
+                        }
+                        catch { }
+                        a.PackingSlip = dr?.ItemArray[23] as string;
+                        a.UpsLabel = dr?.ItemArray[24] as string;
+                        a.ReturnReport = dr?.ItemArray[25] as string;
+                        //26 timestamp
+                        //27 tag
+                        var doc_csv = dr?.ItemArray[28] as string;
+                        a.Documents = new List<string>();
+                        if (doc_csv != null)
+                        {
+                            if (doc_csv != "")
+                            {
+                                a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            }
+                        }
+
+                        newassets.Add(a);
+                    }
+                    request.Tag = newassets;
+                }
+                catch { }
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getalldata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request GetAsset(this SQL_Request request, string AssetNumber, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "AssetGet";
+                //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
+
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
+
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                //create an asset and tag it onto sql_request
+                request.Message = "success:getdata";
+                request.Data = ds;
+                request.Success = true;
+                try
+                {
+                    List<Asset> newassets = new List<Asset>();
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        Asset a = new Asset();
+                        //var id= dr?.ItemArray[0] as string;
+                        a.AssetName = dr?.ItemArray[1] as string;
+                        a.AssetNumber = dr?.ItemArray[2] as string;
+                        try
+                        {
+                            a.OrderNumber = dr?.ItemArray[3] as string;
+                        }
+                        catch { }
+                        a.ShipTo = dr?.ItemArray[4] as string;
+                        a.DateShipped = DateTime.Parse(dr?.ItemArray[5] as string);
+                        a.ServiceEngineer = dr?.ItemArray[6] as string;
+                        a.PersonShipping = dr?.ItemArray[7] as string;
+                        a.DateRecieved = DateTime.Parse(dr?.ItemArray[8] as string);
+                        a.weight = Convert.ToDecimal(dr?.ItemArray[9] as string);
+                        a.IsDamaged = Convert.ToBoolean(dr?.ItemArray[10] as string);
+                        a.OnHold = Convert.ToBoolean(dr?.ItemArray[11] as string);
+                        a.IsOut = Convert.ToBoolean(dr?.ItemArray[12] as string);
+                        a.Description = dr?.ItemArray[13] as string;
+                        a.IsCalibrated = Convert.ToBoolean(dr?.ItemArray[14] as string);
+                        a.CalibrationCompany = dr?.ItemArray[15] as string;
+                        a.LastCalibrated = DateTime.Parse(dr?.ItemArray[16] as string);
+                        a.CalibrationPeriod = dr?.ItemArray[17] as string;
+
+                        a.CalibrationHistory = new CalibrationLibrary();//18
+
+
+                        //imagelinks is 19
+                        a.BarcodeImage = dr?.ItemArray[20] as string;
+                        a.Images = dr?.ItemArray[21] as string;
+                        try
+                        {
+                            var xml = dr?.ItemArray[22] as string;
+                            a.History = new AssetHistory().Deserialize(xml);
+                            foreach (var ii in a.History.History)
+                            {
+                                ii.IsHistoryItem = true;
+                            }
+                        }
+                        catch { }
+                        a.PackingSlip = dr?.ItemArray[23] as string;
+                        a.UpsLabel = dr?.ItemArray[24] as string;
+                        a.ReturnReport = dr?.ItemArray[25] as string;
+                        //26 timestamp
+                        //27 tag
+                        var doc_csv = dr?.ItemArray[28] as string;
+                        a.Documents = new List<string>();
+                        if (doc_csv != null)
+                        {
+                            if (doc_csv != "")
+                            {
+                                a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            }
+                        }
+
+                        newassets.Add(a);
+                        request.Tag = a;
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getdata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request DeleteAsset(this SQL_Request request, string AssetNumber, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "AssetDelete";
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
+                request.Command.ExecuteNonQuery();
+                request.Message = "success:deletedata";
+
+                request.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:deletedata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request UpdateAsset(this SQL_Request request, Asset asset, bool close = true)
+        {
+
+            request.Command = new SqlCommand();
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "AssetUpdate";
+                string imgs = asset.Images;
+                // request.Command.CommandText = "spUpdateTimeData"; //Stored Procedure Name
+                request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
+                request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
+                request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
+                request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
+                request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
+                request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage;
+                request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
+                request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
+                request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
+                request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
+                request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
+                request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
+                request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
+                request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
+                request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
+                request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
+                request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
+                if (asset.PackingSlip == null) { asset.PackingSlip = ""; }
+                request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
+                request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
+                string doc_csv = "";
+                if (asset.Documents != null)
+                {
+                    if (asset.Documents.Count > 0)
+                    {
+                        foreach (var item in asset.Documents)
+                        {
+                            doc_csv += item + ",";
+                        }
+                    }
+                }
+                request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
+
+                if (asset.UpsLabel == null)
+                {
+                    asset.UpsLabel = "/Account/Templates/blank.pdf";
+                }
+                request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
+
+                string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
+                try
+                {
+                    calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
+                }
+                catch { }
+                request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = ""; ///ERASE CALIBRATION DATA SPACE
+                try
+                {
+                    foreach (var ii in asset.History.History)
+                    {
+                        ii.IsHistoryItem = true;
+                    }
+                }
+                catch { }
+                try
+                {
+                    foreach (var aa in asset.History.History)
+                    {
+                        aa.History = new AssetHistory();
+                    }
+                    var histxml = asset.History.Serialize();
+                    request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
+                }
+                catch { }
+
+                request.Command.ExecuteNonQuery();
+                request.Message = "success:assetUpdate";
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:assetUpdate";
+
+                // System.Windows.Forms.MessageBox.Show(ex.ToString());
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        //Asset Async
+        public static async Task<SQL_Request> UpdateAssetAsync(this SQL_Request request, Asset asset, bool close = true)
+        {
+
+            request.Command = new SqlCommand();
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "AssetUpdate";
+                string imgs = asset.Images;
+                // request.Command.CommandText = "spUpdateTimeData"; //Stored Procedure Name
+                request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
+                request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
+                request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
+                request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
+                request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
+                request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage;
+                request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
+                request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
+                request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
+                request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
+                request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
+                request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
+                request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
+                request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
+                request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
+                request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
+                request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
+                if (asset.PackingSlip == null) { asset.PackingSlip = ""; }
+                request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
+                request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
+                request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
+                string doc_csv = "";
+                if (asset.Documents != null)
+                {
+                    if (asset.Documents.Count > 0)
+                    {
+                        foreach (var item in asset.Documents)
+                        {
+                            doc_csv += item + ",";
+                        }
+                    }
+                }
+                request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
+                string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
+                try
+                {
+                    calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
+                }
+                catch { }
+                request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = calXml;
+                try
+                {
+                    foreach (var ii in asset.History.History)
+                    {
+                        ii.IsHistoryItem = true;
+                    }
+                }
+                catch { }
+                try
+                {
+                    foreach (var aa in asset.History.History)
+                    {
+                        aa.History = new AssetHistory();
+                    }
+                    var histxml = asset.History.Serialize();
+                    request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
+                }
+                catch { }
+
+                await request.Command.ExecuteNonQueryAsync();
+                request.Message = "success:assetUpdate";
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:assetUpdate";
+
+                //System.Windows.Forms.MessageBox.Show(ex.ToString());
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static async Task<SQL_Request> GetAssetAsync(this SQL_Request request, string AssetNumber, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "AssetGet";
+                //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
+
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = AssetNumber;
+
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                try
+                {
+                    await Task.Run(() => da.Fill(ds));
+                }
+                catch (Exception ex)
+                {
+                    request.Error.Ex = ex;
+                    request.Success = false;
+                    request.Message = "error:getalldata";
+                    return request;
+                }
+                //create an asset and tag it onto sql_request
+                request.Message = "success:getdata";
+                request.Data = ds;
+                request.Success = true;
+                try
+                {
+                    List<Asset> newassets = new List<Asset>();
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        Asset a = new Asset();
+                        //var id= dr?.ItemArray[0] as string;
+                        a.AssetName = dr?.ItemArray[1] as string;
+                        a.AssetNumber = dr?.ItemArray[2] as string;
+                        try
+                        {
+                            a.OrderNumber = dr?.ItemArray[3] as string;
+                        }
+                        catch { }
+                        a.ShipTo = dr?.ItemArray[4] as string;
+                        a.DateShipped = DateTime.Parse(dr?.ItemArray[5] as string);
+                        a.ServiceEngineer = dr?.ItemArray[6] as string;
+                        a.PersonShipping = dr?.ItemArray[7] as string;
+                        a.DateRecieved = DateTime.Parse(dr?.ItemArray[8] as string);
+                        a.weight = Convert.ToDecimal(dr?.ItemArray[9] as string);
+                        a.IsDamaged = Convert.ToBoolean(dr?.ItemArray[10] as string);
+                        a.OnHold = Convert.ToBoolean(dr?.ItemArray[11] as string);
+                        a.IsOut = Convert.ToBoolean(dr?.ItemArray[12] as string);
+                        a.Description = dr?.ItemArray[13] as string;
+                        a.IsCalibrated = Convert.ToBoolean(dr?.ItemArray[14] as string);
+                        a.CalibrationCompany = dr?.ItemArray[15] as string;
+                        a.LastCalibrated = DateTime.Parse(dr?.ItemArray[16] as string);
+                        a.CalibrationPeriod = dr?.ItemArray[17] as string;
+
+                        a.CalibrationHistory = new CalibrationLibrary();//18
+
+
+                        //imagelinks is 19
+                        a.BarcodeImage = dr?.ItemArray[20] as string;
+                        a.Images = dr?.ItemArray[21] as string;
+                        try
+                        {
+                            var xml = dr?.ItemArray[22] as string;
+                            a.History = new AssetHistory().Deserialize(xml);
+                            foreach (var ii in a.History.History)
+                            {
+                                ii.IsHistoryItem = true;
+                            }
+                        }
+                        catch { }
+                        a.PackingSlip = dr?.ItemArray[23] as string;
+                        a.UpsLabel = dr?.ItemArray[24] as string;
+                        a.ReturnReport = dr?.ItemArray[25] as string;
+                        //26 timestamp
+                        //27 tag
+                        var doc_csv = dr?.ItemArray[28] as string;
+                        a.Documents = new List<string>();
+                        if (doc_csv != null)
+                        {
+                            if (doc_csv != "")
+                            {
+                                a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            }
+                        }
+
+                        newassets.Add(a);
+                        request.Tag = a;
+                    }
+
+                }
+                catch { }
+
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getdata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static async Task<SQL_Request> GetAssetsAsync(this SQL_Request request, bool close = true)
+        {
+            request.Command = new SqlCommand();
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "AssetGetAll";
+                request.Command.CommandTimeout = 120;
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                try
+                {
+                    await Task.Run(() => da.Fill(ds));
+                }
+                catch (Exception ex)
+                {
+                    request.Error.Ex = ex;
+                    request.Success = false;
+                    request.Message = "error:getalldata";
+                    return request;
+                }
+                request.Message = "success:getalldata";
+                request.Data = ds;
+                request.Success = true;
+                List<Asset> newassets = new List<Asset>();
+                try
+                {
+
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        Asset a = new Asset();
+                        //var id= dr?.ItemArray[0] as string;
+                        a.AssetName = dr?.ItemArray[1] as string;
+                        a.AssetNumber = dr?.ItemArray[2] as string;
+                        try
+                        {
+                            a.OrderNumber = dr?.ItemArray[3] as string;
+                        }
+                        catch { }
+                        a.ShipTo = dr?.ItemArray[4] as string;
+                        a.DateShipped = DateTime.Parse(dr?.ItemArray[5] as string);
+                        a.ServiceEngineer = dr?.ItemArray[6] as string;
+                        a.PersonShipping = dr?.ItemArray[7] as string;
+                        a.DateRecieved = DateTime.Parse(dr?.ItemArray[8] as string);
+                        a.weight = Convert.ToDecimal(dr?.ItemArray[9] as string);
+                        a.IsDamaged = Convert.ToBoolean(dr?.ItemArray[10] as string);
+                        a.OnHold = Convert.ToBoolean(dr?.ItemArray[11] as string);
+                        a.IsOut = Convert.ToBoolean(dr?.ItemArray[12] as string);
+                        a.Description = dr?.ItemArray[13] as string;
+                        a.IsCalibrated = Convert.ToBoolean(dr?.ItemArray[14] as string);
+                        a.CalibrationCompany = dr?.ItemArray[15] as string;
+                        a.LastCalibrated = DateTime.Parse(dr?.ItemArray[16] as string);
+                        a.CalibrationPeriod = dr?.ItemArray[17] as string;
+
+                        a.CalibrationHistory = new CalibrationLibrary();//18
+
+
+                        //imagelinks is 19
+                        a.BarcodeImage = dr?.ItemArray[20] as string;
+                        a.Images = dr?.ItemArray[21] as string;
+                        try
+                        {
+                            var xml = dr?.ItemArray[22] as string;
+                            a.History = new AssetHistory().Deserialize(xml);
+                            foreach (var ii in a.History.History)
+                            {
+                                ii.IsHistoryItem = true;
+                            }
+                        }
+                        catch { }
+                        a.PackingSlip = dr?.ItemArray[23] as string;
+                        a.UpsLabel = dr?.ItemArray[24] as string;
+                        a.ReturnReport = dr?.ItemArray[25] as string;
+                        //26 timestamp
+                        //27 tag
+                        var doc_csv = dr?.ItemArray[28] as string;
+                        a.Documents = new List<string>();
+                        if (doc_csv != null)
+                        {
+                            if (doc_csv != "")
+                            {
+                                a.Documents = doc_csv.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            }
+                        }
+
+                        newassets.Add(a);
+                    }
+                    request.Tag = newassets;
+                }
+                catch { }
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getalldata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                {
+                    CloseConnection(request);
+                }
+            }
+            return request;
+        }
+        public static async Task<SQL_Request> AddAssetAsync(this SQL_Request request, Asset asset, bool close = true)
+        {
+            if (request.Connection == null)
+            { request.OpenConnection(); }
+            request.Command = new SqlCommand();
+
+            try
+            {
+                string imgs = "";
+
+                imgs = asset.Images;
+                if (request.Connection.State == ConnectionState.Closed)
+                { request.Connection.Open(); }
+                request.Command = new SqlCommand();
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "AssetInsert"; //Stored Procedure Name
+
+                //	 @AssetName,@AssetNumber,@CalibratedAsset,@Damaged,@OnHold,@BarcodeImage,
+                //@CalibrationCompany,@CalibrationHistory,@CalibrationPeriod,@DateReturned,
+                //@DateShipped,@AssetDescription,@LastCalibrated,@OrderNumber,@PersonShipping,
+                //@PackingSlip,@ReturnReport,@UPSlabel,@Images,@ImageLinks,@ServiceEngineer,@ShipTo,@AssetWeight
+                request.Command.Parameters.Add("@AssetName", SqlDbType.NVarChar).Value = asset.AssetName;
+                request.Command.Parameters.Add("@AssetNumber", SqlDbType.NVarChar).Value = asset.AssetNumber;
+                request.Command.Parameters.Add("@CalibratedAsset", SqlDbType.Bit).Value = asset.IsCalibrated;
+                request.Command.Parameters.Add("@Damaged", SqlDbType.Bit).Value = asset.IsDamaged;
+                request.Command.Parameters.Add("@OnHold", SqlDbType.Bit).Value = asset.OnHold;
+                request.Command.Parameters.Add("@IsOut", SqlDbType.Bit).Value = asset.IsOut;
+                request.Command.Parameters.Add("@BarcodeImage", SqlDbType.NVarChar).Value = asset.BarcodeImage; //FIX
+                request.Command.Parameters.Add("@CalibrationCompany", SqlDbType.NVarChar).Value = asset.CalibrationCompany;
+                string calXml = new CalibrationLibrary().SerializeToXmlString(new CalibrationLibrary());
+                try
+                {
+                    calXml = asset.CalibrationHistory.SerializeToXmlString(asset.CalibrationHistory);
+                }
+                catch { }
+                request.Command.Parameters.Add("@CalibrationHistory", SqlDbType.NVarChar).Value = calXml;
+                request.Command.Parameters.Add("@CalibrationPeriod", SqlDbType.NVarChar).Value = asset.CalibrationPeriod;
+                request.Command.Parameters.Add("@DateReturned", SqlDbType.NVarChar).Value = asset.DateRecieved.ToString();
+                request.Command.Parameters.Add("@DateShipped", SqlDbType.NVarChar).Value = asset.DateShipped.ToString();
+                request.Command.Parameters.Add("@AssetDescription", SqlDbType.NVarChar).Value = asset.Description;
+                request.Command.Parameters.Add("@LastCalibrated", SqlDbType.NVarChar).Value = asset.LastCalibrated.ToString();
+                request.Command.Parameters.Add("@OrderNumber", SqlDbType.NVarChar).Value = asset.OrderNumber.ToString();
+                request.Command.Parameters.Add("@PersonShipping", SqlDbType.NVarChar).Value = asset.PersonShipping;
+                request.Command.Parameters.Add("@Images", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ImageLinks", SqlDbType.NVarChar).Value = imgs;
+                request.Command.Parameters.Add("@ServiceEngineer", SqlDbType.NVarChar).Value = asset.ServiceEngineer;
+                request.Command.Parameters.Add("@ShipTo", SqlDbType.NVarChar).Value = asset.ShipTo;
+                request.Command.Parameters.Add("@AssetWeight", SqlDbType.NVarChar).Value = asset.weight.ToString();
+                try
+                {
+                    foreach (var ii in asset.History.History)
+                    {
+                        ii.IsHistoryItem = true;
+                    }
+                }
+                catch { }
+                var histxml = asset.History.Serialize();
+                request.Command.Parameters.Add("@History", SqlDbType.NVarChar).Value = histxml;
+                request.Command.Parameters.Add("@PackingSlip", SqlDbType.NVarChar).Value = asset.PackingSlip;
+                request.Command.Parameters.Add("@ReturnReport", SqlDbType.NVarChar).Value = asset.ReturnReport;
+                request.Command.Parameters.Add("@UPSlabel", SqlDbType.NVarChar).Value = asset.UpsLabel;
+                string doc_csv = "";
+                if (asset.Documents != null)
+                {
+                    if (asset.Documents.Count > 0)
+                    {
+                        foreach (var item in asset.Documents)
+                        {
+                            doc_csv += item + ",";
+                        }
+                    }
+                }
+                request.Command.Parameters.Add("@Documents", SqlDbType.NVarChar).Value = doc_csv;
+                await request.Command.ExecuteNonQueryAsync();
+                request.Success = true;
+                request.Message = "success:addAsset";
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:addAsset";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+
+            }
+            request.Message = "success:addAsset";
+            request.Success = true;
+            return request;
+        }
+        public static async Task<SQL_Request> DeleteAssetAsync(this SQL_Request request, string AssetNumber, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(DeleteAsset(request,AssetNumber,close));
+        }
+
+
+        //CacheService
+        public static SQL_Request CacheServiceAdd(this SQL_Request request, string KeyName, byte[] KeyValue, bool close = true)
+        {
+            if (request.Connection == null)
+            { request.OpenConnection(); }
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection.State == ConnectionState.Closed)
+                { request.Connection.Open(); }
+                request.Command = new SqlCommand();
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "CacheServiceInsert"; //Stored Procedure Name
+
+                request.Command.Parameters.Add("@KeyName", SqlDbType.NVarChar).Value = KeyName;
+                request.Command.Parameters.Add("@KeyValue", SqlDbType.VarBinary).Value = KeyValue;
+
+                request.Command.ExecuteNonQuery();
+                request.Success = true;
+                request.Message = "success";
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+
+            }
+            request.Message = "success";
+            request.Success = true;
+            return request;
+        }
+        public static SQL_Request CacheServiceGetAll(this SQL_Request request, bool close = true)
+        {
+            
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "CacheServiceGetAll";
+
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                request.Message = "success:getalldata";
+                request.Data = ds;
+                request.Success = true;
+                List<KeyValuePair<string, byte[]>> KeyPairs = new List<KeyValuePair<string, byte[]>>();
+                try
+                {
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        try
+                        {
+                            KeyValuePair<string, byte[]> kp = new KeyValuePair<string, byte[]>( dr?.ItemArray[0] as string,dr?.ItemArray[1] as byte[]);
+                            KeyPairs.Add(kp);
+                        }
+                        catch (Exception ex) {
+                            request.Error.Ex = ex;
+                            request.Success = false;
+                            request.Message = "error:getalldata"; }
+                        }
+                    request.Tag = KeyPairs;
+                }
+                catch (Exception ex) {
+                            request.Error.Ex = ex;
+                            request.Success = false;
+                            request.Message = "error:getalldata";
+                }               
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getalldata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request CacheServiceGet(this SQL_Request request, string KeyName, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "CacheServiceGet";
+                //request.Command.CommandText = "spGetTimeData"; //Stored Procedure Name
+
+                request.Command.Parameters.Add("@KeyName", SqlDbType.NVarChar).Value = KeyName;
+
+                SqlDataAdapter da = new SqlDataAdapter(request.Command);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                //create an asset and tag it onto sql_request
+                request.Message = "success:getdata";
+                request.Data = ds;
+                request.Success = true;
+                List<KeyValuePair<string, byte[]>> KeyPairs = new List<KeyValuePair<string, byte[]>>();
+                try
+                {
+                    foreach (DataRow dr in request.Data.Tables[0].Rows)
+                    {
+                        try
+                        {
+                            KeyValuePair<string, byte[]> kp = new KeyValuePair<string, byte[]>(dr?.ItemArray[0] as string, dr?.ItemArray[1] as byte[]);
+                            KeyPairs.Add(kp);
+                        }
+                        catch (Exception ex)
+                        {
+                            request.Error.Ex = ex;
+                            request.Success = false;
+                            request.Message = "error:getdata";
+                        }
+                    }
+                    request.Tag = KeyPairs?.First();
+                }
+                catch (Exception ex)
+                {
+                    request.Error.Ex = ex;
+                    request.Success = false;
+                    request.Message = "error:getdata";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:getdata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request CacheServiceRemove(this SQL_Request request, string KeyName, bool close = true)
+        {
+            request.Command = new SqlCommand();
+
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+
+                request.Command.CommandText = "CacheServiceDelete";
+                request.Command.Parameters.Add("@KeyName", SqlDbType.NVarChar).Value = KeyName;
+                request.Command.ExecuteNonQuery();
+                request.Message = "success:deletedata";
+
+                request.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "error:deletedata";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+        public static SQL_Request CacheServiceUpdate(this SQL_Request request, string KeyName, byte[] KeyValue, bool close = true)
+        {
+
+            request.Command = new SqlCommand();
+            try
+            {
+                if (request.Connection == null)
+                { request.OpenConnection(); }
+                // Create a object of SqlCommand class
+                request.Command.Connection = request.Connection; //Pass the connection object to Command
+                request.Command.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+                request.Command.CommandText = "CacheServiceUpdate";
+                request.Command.Parameters.Add("@KeyName", SqlDbType.NVarChar).Value = KeyName;
+                request.Command.Parameters.Add("@KeyValue", SqlDbType.VarBinary).Value = KeyValue;
+
+                request.Command.ExecuteNonQuery();
+                request.Message = "success:Update";
+            }
+            catch (Exception ex)
+            {
+                request.Error.Ex = ex;
+                request.Success = false;
+                request.Message = "errorUpdate";
+                return request;
+            }
+            finally
+            {
+                if (close)
+                    CloseConnection(request);
+            }
+            return request;
+        }
+
+        public static async Task<SQL_Request> CacheServiceAddAsync(this SQL_Request request, string KeyName, byte[] KeyValue, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(CacheServiceAdd(request,KeyName,KeyValue,close));
+        }
+        public static async Task<SQL_Request> CacheServiceGetAllAsync(this SQL_Request request, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(CacheServiceGetAll(request,close));
+        }
+        public static async Task<SQL_Request> CacheServiceGetAsync(this SQL_Request request, string KeyName, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(CacheServiceGet(request, KeyName, close));
+        }
+        public static async Task<SQL_Request> CacheServiceRemoveAsync(this SQL_Request request, string KeyName, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(CacheServiceRemove(request, KeyName, close));
+        }
+        public static async Task<SQL_Request> CacheServiceUpdateAsync(this SQL_Request request, string KeyName, byte[] KeyValue, bool close = true)
+        {
+            return await Task.FromResult<SQL_Request>(CacheServiceUpdate(request, KeyName, KeyValue, close));
         }
 
         ////Transactions

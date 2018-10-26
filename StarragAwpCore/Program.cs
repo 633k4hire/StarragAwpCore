@@ -7,11 +7,13 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using StarragAwpCore.Helpers;
 
 namespace StarragAwpCore
 {
     public class Program
     {
+        
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
@@ -19,7 +21,7 @@ namespace StarragAwpCore
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+                .UseStartup<Startup>().UseAzureAppServices()
                 .Build();
     }
 }

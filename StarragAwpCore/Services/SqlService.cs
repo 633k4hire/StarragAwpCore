@@ -20,6 +20,12 @@ namespace StarragAwpCore.Services
             return await request.CloseConnection();
         }
 
+        /// <summary>
+        /// THIS IS A FUNCTION TO PULL ALL SETTINGS FROM ALL APPS
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="close"></param>
+        /// <returns></returns>
         public async Task<SQL_Request> GetAllAsync(SQL_Request request, bool close = true)
         {
             return await request.SettingsGetAllAsync(close);
@@ -49,5 +55,11 @@ namespace StarragAwpCore.Services
         {
             return await request.SettingsUpdateAsync(AppName, XmlData, XmlData2, XmlData3, XmlData4, XmlData5, close);
         }
+
+        public async Task<SQL_Request> RemoveAsync(SQL_Request request, string AppName, bool close = true)
+        {
+            return await request.SettingsRemoveAsync(AppName, close);
+        }
+
     }
 }

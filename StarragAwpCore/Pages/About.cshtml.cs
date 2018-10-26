@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Distributed;
 using StarragAwpCore.Data;
+using StarragAwpCore.Helpers;
 using StarragAwpCore.Services;
+using StarragAwpCore.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace StarragAwpCore.Pages
 {
@@ -16,29 +19,35 @@ namespace StarragAwpCore.Pages
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailService _emailSender;
         private readonly SqlService _sqlService;
-        private readonly ICacheService _cacheService;
-        private readonly IDistributedCache _cache;
-
+        private readonly DistributedCacheWithSql _cacheService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
         public AboutModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailService emailService,
             ISqlService sqlService, 
-            ICacheService cacheService,
-            IDistributedCache cache)
+            IDistributedCacheWithSqlService cacheService,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailService;
             _sqlService = sqlService as SqlService;
-            _cacheService = cacheService as CacheService;
-            _cache = cache;
+            _cacheService = cacheService as DistributedCacheWithSql;
+            _httpContextAccessor = httpContextAccessor;            
         }
 
         public string Message { get; set; }
        
         public async void OnGet()
         {
+            var a = _session;
+            //SESSION!!!!!!!!!!!!!! SUCCESS
+            
+            a.SetString("testString", "MattLovesDee");
+            var ret = a.GetString("testString");
 
             Message = "Your application description page.";
 
@@ -48,19 +57,18 @@ namespace StarragAwpCore.Pages
             //Use SqlService 
             var request = await _sqlService.OpenConnection();
             await request.AddAsync("StarragAwpCore", "notxml");
+            await request.RemoveAsync("StarragAwpCore");
 
             //Optional sql access
-            await _sqlService._request.UpdateAsync("StarragAwpCore", "notxmlalso");
+            await _sqlService._request.GetAsync("StarragAwpCore");
 
-          
+            //CacheSerice access
+            var servertime = await _cacheService.PullAsync<string>("LastServerStartTime");
 
-            //use distributed cache
-            await _cache.PushAsync<int>("myInt", 3, 1);
-            int myInt = await _cache.PullAsync<int>("myInt");
+            _cacheService.PushAll<string>("mm", "MandD", _cacheService._session);
 
-            //Use Push Class IS SUPER CLAS THAT IS CUSTOM WRITTEN TO MAKE ALL CACHING EASIER
-            await Push.UserData();
-            var str = await Pull.UserData();
+            //var result = await _cacheService.PullAllAsync<string>("TestString",_session);
+
 
         }
     }

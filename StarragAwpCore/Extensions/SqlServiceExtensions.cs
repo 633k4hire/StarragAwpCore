@@ -47,5 +47,10 @@ namespace StarragAwpCore
         {
             return await request.SettingsUpdateAsync(AppName, XmlData, XmlData2, XmlData3, XmlData4, XmlData5, close);
         }
+
+        public static async Task<SQL_Request> RemoveAsync(this SQL_Request request, string AppName)
+        {
+            return await request.SettingsRemoveAsync(AppName);
+        }
     }
 }

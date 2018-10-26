@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarragAwpCore.Services
 {
-    public interface ICacheService: IDistributedCache
+    public interface IDistributedCacheWithSqlService: IDistributedCache
     {
 
     }
